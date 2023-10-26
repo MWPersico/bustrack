@@ -1,0 +1,7 @@
+RewriteEngine on
+RewriteCond %{SCRIPT_FILENAME} !-f
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?url=$1
+<IfModule mod_mime.c>
+  AddType text/javascript js mjs
+</IfModule>
