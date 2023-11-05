@@ -18,6 +18,10 @@ $url = array_filter(explode('/', $url));
 
 switch ($url[0]) {
     case "app.html":require_once "./app.html"; break;
+    case "admin":
+        header("Content-Type: text/html; charset=utf-8");
+        require_once "./admin.html";
+    break;
     case "register":register(); break;
     case "update":update(); break;
     case "clear":clear(); break;
@@ -27,6 +31,10 @@ switch ($url[0]) {
     case "delete":deleteVehicle($url[1]);break;
     case "geocode":reverseGeocoding($url[1]);break;
     case "route":calculateRoute($url[1], $url[2]);break;
+    case "track":
+        header("Content-Type: text/html; charset=utf-8");
+        require_once "./track.html";
+    break;
     default: echo "A página ".$url[0]." não existe";
 }
 

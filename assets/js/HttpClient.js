@@ -1,7 +1,6 @@
 // Classe para realizar requisições HTTP via AJAX para a API
 import {REQ_URL} from "./config.js";
-export default
-class HttpClient{
+export default class HttpClient{
   doPost(path, body){
     return new Promise(function (resolve, reject) {
       let xhttp = new XMLHttpRequest();

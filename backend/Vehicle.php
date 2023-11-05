@@ -17,20 +17,21 @@ class Vehicle implements Trackable
         $this->avgSpeed = $avgSpeed;
         $this->dbService = $dbService;
         $this->dbService->add($this);
+        $this->coordinates = new Coordinates();
     }
 
     public function getCoordinates(): ?array
     {
-        if (!empty($this->coordinates)) {
+        if ($this->coordinates->getCoordinates()!=null) {
             $coords = $this->coordinates->getCoordinates();
             return array("lat" => $coords[0], "long" => $coords[1], "time" => $coords[2]);
         }
         return null;
     }
 
-    public function setCoordinates(array $coords)
+    public function setCoordinates(array $coords, DateTime $time = new DateTime())
     {
-        $this->coordinates = new Coordinates($coords);
+        $this->coordinates->setCoordinates($coords, $time);
         $this->dbService->update($this->id, $this);
     }
 

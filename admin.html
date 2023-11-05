@@ -1,0 +1,101 @@
+<!-- Documento HTML com interface principal do projeto -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bustrack - Admin</title>
+    <script src="https://kit.fontawesome.com/6392333b02.js" crossorigin="anonymous"></script>
+    <style>
+        body{
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            background-color:#ccc;
+        }
+
+        h1{
+            font-size:2em;
+            margin:10px 0 20px;
+        }
+
+        #vehicleForm{
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            max-width:80%;
+        }
+
+        #vehicleForm>label{
+            width:80%;
+            margin-bottom:10px;
+        }
+
+        #vehicleForm input{
+            font-size:1.2em;
+        }
+
+        #vehicleFormBtn{
+            border:none;
+            cursor:pointer;
+            background-color:aquamarine;
+            border-radius:10px;
+            font-size:1.6em;
+        }
+
+        #vehiclesDiv{
+            margin-top:100px;
+            max-width:500px;
+            width:100%;
+            padding:20px;
+            height:10px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+
+        #vehicles{
+            width:100%;
+            border:1px solid;
+        }
+
+        #vehicles td, #vehicles th{
+            text-align:center;
+            border:1px solid black;
+        }
+
+        .trackVehicleBtn{
+            cursor:pointer;
+            color:rgb(72, 56, 213);
+        }
+
+        .deleteVehicleBtn{
+            cursor:pointer;
+            color:rgb(216, 55, 55)
+        }
+    </style>
+</head>
+<body>
+    <h1>BUSTRACK - Administração de Veículos</h1>
+    <form id="vehicleForm">
+        <label>name: <input type="text" name="name" id="name" placeholder="name" required/></label>
+        <label>type: <input type="text" name="type" id="type" placeholder="type" required/></label>
+        <label>speed: <input type="number" name="avgSpeed" id="speed" placeholder="speed" required></label>
+        <button id="vehicleFormBtn" type="submit">Cadastrar</button>
+    </form>
+    <div id="vehiclesDiv">
+        <table id="vehicles">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Track</th>
+                <th>Delete</th>
+            </tr>
+        </table>
+    </div>
+    <script type="module" src="./assets/js/Admin.js"></script>
+</body>
+</html>

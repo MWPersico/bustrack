@@ -74,7 +74,7 @@ class App
                 $object = new Vehicle($vehicle["name"], $vehicle["vehicleType"], $vehicle["avgSpeed"], $this->dbHandler);
                 $object->setId($vehicle["vehicleId"]);
                 if ($vehicle["lastTrack"]) {
-                    $object->setCoordinates([$vehicle["lat"], $vehicle["long"]]);
+                    $object->setCoordinates([$vehicle["lat"], $vehicle["long"]], new DateTime($vehicle["lastTrack"]));
                 }
                 $this->vehicles[$vehicle["vehicleId"]] = $object;
             }

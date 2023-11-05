@@ -1,31 +1,30 @@
 <?php
 // Classe com informações de localização, estão relacionadas aos objetos do tipo Trackable;
+date_default_timezone_set('Etc/GMT+3');
 class Coordinates
 {
-    private float $lat;
-    private float $long;
+    private ?float $lat;
+    private ?float $long;
     private DateTime $time;
 
-    public function __construct(array $coords)
-    {
-        $this->lat = $coords[0];
-        $this->long = $coords[1];
-        date_default_timezone_set('Etc/GMT+3');
-        $this->time = new DateTime();
+    public function __construct(){
+        $this->lat = null;
+        $this->long = null;
     }
 
     public function getCoordinates(): ?array
     {
-        if ($this->lat) {
+        if ($this->lat!=null) {
             return [$this->lat, $this->long, $this->getTime()];
         }
         return null;
     }
 
-    public function setCoordinates(array $coords)
+    public function setCoordinates(array $coords, DateTIme $time)
     {
         $this->lat = $coords[0];
         $this->long = $coords[1];
+        $this->time = $time;
     }
 
     public function getTime(): string
