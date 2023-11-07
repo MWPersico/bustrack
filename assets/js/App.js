@@ -3,19 +3,34 @@ import VehicleMethods from "./VehicleMethods.js";
 import {API_KEY} from "./config.js";
 
 const bustrack = new VehicleMethods();
-const icons = document.querySelectorAll(".icon");
+const markers = {
+    bus:document.querySelector(".bus"),
+    car:document.querySelector(".car"),
+    person:document.querySelector(".person"),
+    default:'a'
+};
 var map;
 getUserLocation();
 
+
+
 // Evento que pega a localização do veículo e exibe no mapa:
 document.addEventListener("click", async ()=>{
-    let marker = new tt.Marker(icons[0])
-    .setLngLat(vehicleCoordinates(await bustrack.getVehicle(1)))
-    .addTo(map);
+    var data = await bustrack.getData();
 
-    let marker2 = new tt.Marker(icons[1])
-    .setLngLat(vehicleCoordinates(await bustrack.getVehicle(2)))
-    .addTo(map);
+    data.forEach(vehicle=>{
+        new tt.Marker(getMarker(vehicle))
+        .setLngLat(getVehicleCoordinates(vehicle))
+        .addTo(map);
+    })
+
+    // let marker = new tt.Marker(getMarker(data[0]))
+    // .setLngLat(getVehicleCoordinates(data[0]))
+    // .addTo(map);
+    
+    // let marker2 = new tt.Marker(getMarker(data[1]))
+    // .setLngLat(getVehicleCoordinates(data[1]))
+    // .addTo(map);
 });
 
 // Requisita a posição do usuário para exibição do mapa:
@@ -43,11 +58,17 @@ function setMap(location){
 }
 
 //Extrai as coordenadas de um veículo
-function vehicleCoordinates(vehicle){
+function getVehicleCoordinates(vehicle){
     return [vehicle.long, vehicle.lat];
 }
 
-//TODO: Personalizar marcadores, formatar mapa, setInterval para attualizar posição e etc;
+function getMarker(vehicle){
+    if(Object.hasOwn(markers, vehicle.vehicleType)){
+        return markers[vehicle.vehicleType];
+    }
+    return markers.default;
+}
+// //TODO: Personalizar marcadores, formatar mapa, setInterval para attualizar posição e etc;
 
-// let vehicle1 = await bustrack.getVehicle(1);
-// let vehicle2 = await bustrack.getVehicle(2);
+// // let vehicle1 = await bustrack.getVehicle(1);
+// // let vehicle2 = await bustrack.getVehicle(2);

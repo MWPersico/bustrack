@@ -3,6 +3,7 @@ import VehicleMethods from "./VehicleMethods.js";
 const bustrack = new VehicleMethods();
 const form = document.getElementById("vehicleForm");
 const vehiclesTable = document.getElementById("vehicles");
+const resetBtn = document.getElementById("resetBtn");
 
 document.addEventListener("load", getVehicles());
 
@@ -18,6 +19,11 @@ form.addEventListener("submit", async (e)=>{
     e.target.reset();
     getVehicles();
 });
+
+resetBtn.addEventListener("click", async ()=>{
+    await bustrack.clearDatabase();
+    getVehicles();
+})
 
 async function getVehicles(){
     let vehicles = await bustrack.getData();
