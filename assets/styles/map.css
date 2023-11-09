@@ -18,6 +18,7 @@ html {
     align-items: center;
     justify-content: center;
     border-radius: 20px;
+    cursor:pointer;
 }
 .marker i {
     font-size: 2em;

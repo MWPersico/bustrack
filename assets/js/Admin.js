@@ -15,6 +15,7 @@ form.addEventListener("submit", async (e)=>{
     for(const [key, value] of formData){
         formDataObj[key] = value;
     }
+    console.log(formDataObj)
     await bustrack.registerVehicle(formDataObj);
     e.target.reset();
     getVehicles();
@@ -48,7 +49,6 @@ async function getVehicles(){
     }
     vehicleActions();
 }
-
 
 // Aciona os eventos para deleção e rastreamento de veículos
 function vehicleActions(){
