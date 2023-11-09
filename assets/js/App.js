@@ -3,9 +3,11 @@ import VehicleMethods from "./VehicleMethods.js";
 import {API_KEY} from "./config.js";
 
 const bustrack = new VehicleMethods();
-var markerList = {}
 var map;
-const markers = {
+var markers;
+var markerList = {}
+const modal = document.getElementById("modal");
+const markerIcons = {
     bus:document.querySelector(".bus"),
     car:document.querySelector(".car"),
     person:document.querySelector(".person"),
@@ -44,7 +46,7 @@ async function setMap(location){
         center:CENTER,
         zoom:17
     });
-    new tt.Marker()
+    markerList['user'] = new tt.Marker()
     .setLngLat(CENTER)
     .addTo(map)
 
@@ -54,6 +56,7 @@ async function setMap(location){
         .setLngLat(getVehicleCoordinates(vehicle))
         .addTo(map);
     })
+    setMarkersEvent();
 }
 
 //Extrai as coordenadas de um veículo
@@ -63,8 +66,51 @@ function getVehicleCoordinates(vehicle){
 
 // Retorna o marcador referente ao tipo de objeto
 function getMarker(vehicle){
-    if(Object.hasOwn(markers, vehicle.vehicleType)){
-        return markers[vehicle.vehicleType];
+    if(Object.hasOwn(markerIcons, vehicle.vehicleType)){
+        return markerIcons[vehicle.vehicleType];
     }
-    return markers.default;
+    return markerIcons.default;
+}
+
+function setMarkersEvent(){
+    markers = document.querySelectorAll(".marker")
+    .forEach(marker=>marker.addEventListener("click", (e)=>{
+        for(var [key, value] of Object.entries(markerList)){
+            if(e.target == value._element || e.target.offsetParent == value._element){
+                getMarkerData(key);
+                return;
+            }
+            
+        }
+    }));
+}
+
+async function getMarkerData(vehicleId){
+    let vehicle = await bustrack.getVehicle(vehicleId);
+    let userCoords = [markerList.user._lngLat.lng, markerList.user._lngLat.lat];
+    let vehicleCoords = getVehicleCoordinates(vehicle);
+    let route = await bustrack.calculateRoute(userCoords, vehicleCoords, vehicle.avgSpeed);
+    let location = await bustrack.reverseGeocode(vehicleId);
+    setModal(location, route);   
+}
+
+function setModal(location, route){
+    let content = `
+        <i id="closeModal" class="fa-solid fa-x"></i>
+        <p>Rua: ${location.street} - ${location.countrySubdivisionCode}</p>
+        <p>Município: ${location.municipality}</p>
+        <p>Distância: ${(route.lengthInMeters/1000).toFixed(2)} quilômetros</p>
+        <p>Tempo: ${Math.round(route.travelTimeInSeconds/60)} minutos</p>
+        <p>Saída: ${getTime(route.departureTime)}</p>
+        <p>Chegada: ${getTime(route.arrivalTime)}</p>
+
+    `
+    modal.innerHTML = content;
+    modal.style.display = 'block';
+    document.getElementById("closeModal").addEventListener("click", ()=>modal.style.display = 'none');
+}
+
+function getTime(time){
+    let date = new Date(time);
+    return `${date.getHours()}:${date.getMinutes()}`;
 }

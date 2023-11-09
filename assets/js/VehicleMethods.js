@@ -40,8 +40,8 @@ export default class VehicleMethods{
         }
     }
     
-    async  calculateRoute(coords1, coords2){
-        let data = await this.httpClient.doGet("route/"+`${coords1[0]},${coords1[1]}/${coords2[0]},${coords2[1]}`);
+    async  calculateRoute(coords1, coords2, speed){
+        let data = await this.httpClient.doGet("route/"+`${coords1[1]},${coords1[0]}/${coords2[1]},${coords2[0]}/${speed}`);
         try{
             return JSON.parse(data).routes[0].summary;
         }catch(ex){

@@ -50,9 +50,10 @@ class App
         return $this->vehicles[$vehicleId]->reverseGeocoding($this->locationService);
     }
 
-    public function calculateRoute(array $coordsFrom, array $coordsTo): object
+    public function calculateRoute(array $coordsFrom, array $coordsTo, int $speed): object
     {
-        $url = "https://api.tomtom.com/routing/1/calculateRoute/$coordsFrom[0],$coordsFrom[1]:$coordsTo[0],$coordsTo[1]/json?&vehicleHeading=90&sectionType=traffic&report=effectiveSettings&routeType=eco&traffic=true&avoid=unpavedRoads&travelMode=car&vehicleMaxSpeed=120&vehicleCommercial=false&vehicleEngineType=combustion&key=" . APIKEY;
+        $maxSpeed = $speed+30;
+        $url = "https://api.tomtom.com/routing/1/calculateRoute/$coordsFrom[0],$coordsFrom[1]:$coordsTo[0],$coordsTo[1]/json?&vehicleHeading=90&sectionType=traffic&report=effectiveSettings&routeType=eco&traffic=true&avoid=unpavedRoads&travelMode=car&vehicleMaxSpeed=$maxSpeed&vehicleCommercial=false&vehicleEngineType=combustion&key=" . APIKEY;
         return $this->locationService->calculateRoute($url);
     }
 

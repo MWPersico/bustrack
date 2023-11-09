@@ -30,7 +30,7 @@ switch ($url[0]) {
     case "data":getData();break;
     case "delete":deleteVehicle($url[1]);break;
     case "geocode":reverseGeocoding($url[1]);break;
-    case "route":calculateRoute($url[1], $url[2]);break;
+    case "route":calculateRoute($url[1], $url[2], $url[3]);break;
     case "track":
         header("Content-Type: text/html; charset=utf-8");
         require_once "./track.html";
@@ -123,7 +123,7 @@ function reverseGeocoding($id){
     } 
 }
 
-function calculateRoute($coords1, $coords2){
+function calculateRoute($coords1, $coords2, $speed){
     global $app;
     if($coords1 && $coords2){
         $data1 = explode(",", $coords1);
@@ -131,7 +131,7 @@ function calculateRoute($coords1, $coords2){
         $coord1 = [$data1[0], $data1[1]];
         $coord2 = [$data2[0], $data2[1]];
         try{
-            $data = $app->calculateRoute($coord1, $coord2);
+            $data = $app->calculateRoute($coord1, $coord2, $speed);
             echo json_encode($data);
         }catch(Exception $ex){
             echo "Não foi possível calcular a rota entre os pontos";
