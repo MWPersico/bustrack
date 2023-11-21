@@ -39,7 +39,7 @@ async function getVehicles(){
     for(let vehicle of vehicles){
         let row = `
         <tr vehicleid="${vehicle.vehicleId}">
-            <td>${vehicle.vehicleId}</td>
+            <td class="searchVehicleBtn">${vehicle.vehicleId}</td>
             <td>${vehicle.name}</td>
             <td>${vehicle.vehicleType}</td>
             <td><i class="fa-solid fa-location-crosshairs trackVehicleBtn"></i></td>
@@ -54,6 +54,7 @@ async function getVehicles(){
 function vehicleActions(){
     let deleteButtons = document.querySelectorAll(".deleteVehicleBtn");
     let trackButtons = document.querySelectorAll(".trackVehicleBtn");
+    let searchButtons = document.querySelectorAll(".searchVehicleBtn");
     for(let button of deleteButtons){
         //Deleta veículo registrado
         button.addEventListener("click", async e=>{
@@ -67,6 +68,13 @@ function vehicleActions(){
         button.addEventListener("click", e=>{
             let row = e.target.parentElement.parentElement;
             window.location.href = `track?id=${row.getAttribute("vehicleid")}`;
+        });
+    }
+    for(let button of searchButtons){
+        //Começa a rastrear veículo registrado
+        button.addEventListener("click", e=>{
+            let row = e.target.parentElement;
+            window.location.href = `vehicle/${row.getAttribute("vehicleid")}`;
         });
     }
 }

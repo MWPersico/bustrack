@@ -13,7 +13,9 @@ const markerIcons = {
     person:document.querySelector(".person"),
     default:``
 };
-getUserLocation();
+navigator.permissions.query({name: "geolocation"});
+window.addEventListener("load", getUserLocation);
+
 
 // Evento que pega a localização do veículo e exibe no mapa:
 document.addEventListener("click", async ()=>{
@@ -27,7 +29,6 @@ document.addEventListener("click", async ()=>{
 // Requisita a posição do usuário para exibição do mapa:
 function getUserLocation(){
     try{
-        navigator.permissions.query({ name: "geolocation" });
         navigator.geolocation.getCurrentPosition(setMap);
     }catch(ex){console.log(ex.message, "Você deve permitir que tenhamos acesso a sua localização!")}
 }
@@ -97,8 +98,8 @@ async function getMarkerData(vehicleId){
 function setModal(location, route){
     let content = `
         <i id="closeModal" class="fa-solid fa-x"></i>
-        <p>Rua: ${location.street} - ${location.countrySubdivisionCode}</p>
-        <p>Município: ${location.municipality}</p>
+        <p>Rua: ${location.street?location.street:"*desconhecida"} - ${location.countrySubdivisionCode}</p>
+        <p>Município: ${location.municipality?location.municipality:"*desconhecido"}</p>
         <p>Distância: ${(route.lengthInMeters/1000).toFixed(2)} quilômetros</p>
         <p>Tempo: ${Math.round(route.travelTimeInSeconds/60)} minutos</p>
         <p>Saída: ${getTime(route.departureTime)}</p>

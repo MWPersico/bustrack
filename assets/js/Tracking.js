@@ -6,10 +6,12 @@ const bustrack = new VehicleMethods();
 const vehicleId = new URLSearchParams(window.location.search).get("id");
 const trackingInterval = 5;
 
+navigator.permissions.query({name: "geolocation"});
+
+
 document.getElementById("action").addEventListener("click", e=>{
     setInterval(()=>{
         try{
-            navigator.permissions.query({name: "geolocation"});
             navigator.geolocation.getCurrentPosition(tracking);
         }catch(ex){
             trackingError(ex);

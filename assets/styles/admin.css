@@ -1,9 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;900&display=swap');
+
+*{
+    font-family: 'Roboto', sans-serif;
+}
+
 body {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #ccc;
+    background-color: rgb(138, 200, 211);
 }
 
 h1 {
@@ -22,6 +28,7 @@ h1 {
 #vehicleForm>label {
     width: 80%;
     margin-bottom: 10px;
+    font-size:1.1em;
 }
 
 #vehicleForm input {
@@ -31,7 +38,7 @@ h1 {
 #vehicleFormBtn {
     border: none;
     cursor: pointer;
-    background-color: aquamarine;
+    background-color: rgb(87, 170, 88);
     border-radius: 10px;
     font-size: 1.6em;
 }
@@ -49,14 +56,26 @@ h1 {
 
 #vehicles {
     width: 100%;
-    border: 1px solid;
     margin-bottom: 10px;
+    border-radius:20px;
 }
 
 #vehicles td,
 #vehicles th {
     text-align: center;
-    border: 1px solid black;
+    border:2px solid #4472C4;
+}
+
+#vehicles th{
+    background-color:#4472C4;
+}
+
+#vehicles tr{
+    background-color:#B4C6E7;
+}
+
+#vehicles tr:nth-child(odd){
+    background-color:#8EA9DB;
 }
 
 .trackVehicleBtn {
@@ -67,6 +86,10 @@ h1 {
 .deleteVehicleBtn {
     cursor: pointer;
     color: rgb(216, 55, 55)
+}
+
+.searchVehicleBtn{
+    cursor:pointer;
 }
 
 #resetBtn {
@@ -83,7 +106,8 @@ h1 {
 #type {
     position: relative;
     font-family: Arial;
-    width:93.5%;
+    width:90%;
+    height:30px;
     font-size:1.2em;
 }
 
