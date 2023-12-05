@@ -20,7 +20,7 @@ class Coordinates
         return null;
     }
 
-    public function setCoordinates(array $coords, DateTIme $time)
+    public function setCoordinates(array $coords, DateTime $time)
     {
         $this->lat = $coords[0];
         $this->long = $coords[1];

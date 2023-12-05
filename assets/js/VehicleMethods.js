@@ -1,7 +1,9 @@
 //Classe com todas as operações básicas do sistema, trabalha com conjunto com o HttpClient e lida com dados de veículos
 import HttpClient from "./HttpClient.js";
 export default class VehicleMethods{
-    httpClient = new HttpClient();
+    constructor(){
+        this.httpClient = new HttpClient();
+    }
 
     async registerVehicle(data){
         let normalizedData = data;
